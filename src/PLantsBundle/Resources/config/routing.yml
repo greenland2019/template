@@ -1,0 +1,7 @@
+p_lants_homepage:
+    path:     /
+    defaults: { _controller: PLantsBundle:Default:index }
+
+plants_homepage:
+    path:     /login
+    defaults: { _controller: PLantsBundle:Login:connect }
