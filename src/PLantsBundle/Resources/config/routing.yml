@@ -1,5 +1,5 @@
 p_lants_homepage:
-    path:     /
+    path:     /home
     defaults: { _controller: PLantsBundle:Default:index }
 
 plants_homepage:

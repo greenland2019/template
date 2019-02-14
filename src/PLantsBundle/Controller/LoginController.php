@@ -14,7 +14,9 @@ class LoginController extends Controller
         if($request->getMethod() == "POST"){
             $admin= $em->getRepository('PLantsBundle:Personne')->findOneBy(['email'=> $request->get("email"),'password'=> $request->get("password")]);
             if($admin && $admin->getRole()=="admin"){
-                return $this->render('@PLants/Login/index.html.twig');
+                $sesion =$request->getSession();
+                $sesion->set('login', $admin->getPrenom());
+                return $this->render('@PLants/Login/main-page.html.twig');
             }
 
                 return $this->render('@PLants/Login/signin.html.twig');

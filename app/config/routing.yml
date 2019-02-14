@@ -1,3 +1,11 @@
+communaute:
+    resource: "@CommunauteBundle/Resources/config/routing.yml"
+    prefix:   /
+
+produits:
+    resource: "@ProduitsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 p_lants:
     resource: "@PLantsBundle/Resources/config/routing.yml"
     prefix:   /

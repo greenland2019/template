@@ -16,16 +16,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //custom-theme -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/component.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/export.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/flipclock.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/circles.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style_grid.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/component.css') }}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/export.css') }}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/flipclock.css') }}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/circles.css') }}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/style_grid.css') }}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
 
 <!-- font-awesome-icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="{{ asset('templates/css/font-awesome.css') }}" rel="stylesheet">
 <!-- //font-awesome-icons -->
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
 </head>
@@ -72,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<a href="#"><i class="fa fa-files-o" aria-hidden="true"></i> Pages <i class="fa fa-angle-down" aria-hidden="true"></i></a>
 										 <ul class="gn-submenu">
 						
-									  <li class="mini_list_agile"> <a href="signin.html"> <i class="fa fa-caret-right" aria-hidden="true"></i> Sign In</a></li>
+									  <li class="mini_list_agile"> <a href="signin.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Sign In</a></li>
 									   <li class="mini_list_w3"><a href="signup.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Sign Up</a></li>
 									   <li class="mini_list_agile error"><a href="404.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Error 404 </a></li>
 	
@@ -97,7 +97,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<li class="dropdown profile_details_drop">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<div class="profile_img">	
-												<span class="prfil-img"><img src="images/admin.jpg" alt=""> </span> 
+												<span class="prfil-img"><img src="{{ asset('templates/images/admin.jpg')}}" alt=""> </span>
 											</div>	
 										</a>
 										<ul class="dropdown-menu drp-mnu">
@@ -120,7 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												</div>
 											</li>
 											<li><a href="#">
-												<div class="user_img"><img src="images/a3.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a3.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>John Smith</h6>
 												<p>Lorem ipsum dolor</p>
@@ -129,7 +129,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											  <div class="clearfix"></div>	
 											 </a></li>
 											 <li class="odd"><a href="#">
-												<div class="user_img"><img src="images/a1.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a1.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>Jasmin Leo</h6>
 												<p>Lorem ipsum dolor</p>
@@ -138,7 +138,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											   <div class="clearfix"></div>	
 											 </a></li>
 											 <li><a href="#">
-												<div class="user_img"><img src="images/a2.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a2.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>James Smith</h6>
 												<p>Lorem ipsum dolor</p>
@@ -147,7 +147,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											   <div class="clearfix"></div>	
 											 </a></li>
 											  <li><a href="#">
-												<div class="user_img"><img src="images/a4.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a4.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>James Smith</h6>
 												<p>Lorem ipsum dolor</p>
@@ -176,7 +176,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												</div>
 											</li>
 											<li><a href="#">
-												<div class="user_img"><img src="images/a3.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a3.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>John Smith</h6>
 												<p>Lorem ipsum dolor</p>
@@ -185,7 +185,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											  <div class="clearfix"></div>	
 											 </a></li>
 											 <li class="odd"><a href="#">
-												<div class="user_img"><img src="images/a1.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a1.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>Jasmin Leo</h6>
 												<p>Lorem ipsum dolor</p>
@@ -194,7 +194,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											   <div class="clearfix"></div>	
 											 </a></li>
 											 <li><a href="#">
-												<div class="user_img"><img src="images/a2.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a2.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>James Smith</h6>
 												<p>Lorem ipsum dolor</p>
@@ -522,7 +522,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						    <div class="profile_bg_agile">
 								<div class="profile-pic wthree">
 									<h2>Bason Durel</h2>
-									<img src="images/profile.jpg" alt="Image">
+									<img src="{{ asset('templates/images/profile.jpg')}}" alt="Image">
 									<p>Web Designer</p>
 								</div>
 								<div class="profile-ser">
@@ -646,7 +646,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 <div class="clearfix"></div>
 									  <div class="bottom_info_social">
 									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/admin.jpg" alt="">
+									    <img src="{{ asset('templates/images/admin.jpg')}}" alt="">
 									 </div>
 									  <div class="col-md-8 agile_w3l_social_media_text">
 									    <h4>Hurisa Joe</h4>
@@ -669,7 +669,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 <div class="clearfix"></div>
 									  <div class="bottom_info_social">
 									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/a1.jpg" alt="">
+									    <img src="{{ asset('templates/images/a1.jpg')}}" alt="">
 									 </div>
 									  <div class="col-md-8 agile_w3l_social_media_text">
 									    <h4>Jasmin Joe</h4>
@@ -692,7 +692,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 <div class="clearfix"></div>
 									  <div class="bottom_info_social">
 									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/a2.jpg" alt="">
+									    <img src="{{ asset('templates/images/a2.jpg')}}" alt="">
 									 </div>
 									  <div class="col-md-8 agile_w3l_social_media_text">
 									    <h4>John Pal</h4>
@@ -716,7 +716,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 <div class="clearfix"></div>
 									  <div class="bottom_info_social">
 									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/a4.jpg" alt="">
+									    <img src="{{ asset('templates/images/a4.jpg')}}" alt="">
 									 </div>
 									  <div class="col-md-8 agile_w3l_social_media_text">
 									    <h4>Honey Pal</h4>
@@ -744,13 +744,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--copy rights end here-->
 <!-- js -->
 
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="{{ asset('templates/js/jquery-2.1.4.min.js')}}"></script>
 
 	<!-- /amcharts -->
-				<script src="js/amcharts.js"></script>
-		       <script src="js/serial.js"></script>
-				<script src="js/export.js"></script>	
-				<script src="js/light.js"></script>
+				<script src="{{ asset('js/amcharts.js')}}"></script>
+		       <script src="{{ asset('templates/js/serial.js')}}"></script>
+				<script src="{{ asset('templates/js/export.js')}}"></script>
+				<script src="{{ asset('templates/js/light.js')}}"></script>
 				<!-- Chart code -->
 	 <script>
 var chart = AmCharts.makeChart("chartdiv", {
@@ -964,19 +964,19 @@ var chart = AmCharts.makeChart("chartdiv1", {
 </script>
 
 	<!-- //amcharts -->
-		<script src="js/chart1.js"></script>
-				<script src="js/Chart.min.js"></script>
-		<script src="js/modernizr.custom.js"></script>
+		<script src="{{ asset('templates/js/chart1.js')}}"></script>
+				<script src="{{ asset('templates/js/Chart.min.js')}}"></script>
+		<script src="{{ asset('templates/js/modernizr.custom.js')}}"></script>
 		
-		<script src="js/classie.js"></script>
-		<script src="js/gnmenu.js"></script>
+		<script src="{{ asset('templates/js/classie.js')}}"></script>
+		<script src="{{ asset('templates/js/gnmenu.js')}}"></script>
 		<script>
 			new gnMenu( document.getElementById( 'gn-menu' ) );
 		</script>
 			<!-- script-for-menu -->
 
 <!-- /circle-->
-	 <script type="text/javascript" src="js/circles.js"></script>
+	 <script type="text/javascript" src="{{ asset('templates/js/circles.js')}}"></script>
 					         <script>
 								var colors = [
 										['#ffffff', '#fd9426'], ['#ffffff', '#fc3158'],['#ffffff', '#53d769'], ['#ffffff', '#147efb']
@@ -999,7 +999,7 @@ var chart = AmCharts.makeChart("chartdiv1", {
 				</script>
 	<!-- //circle -->
 	<!--skycons-icons-->
-<script src="js/skycons.js"></script>
+<script src="{{ asset('templates/js/skycons.js')}}"></script>
 <script>
 									 var icons = new Skycons({"color": "#fcb216"}),
 										  list  = [
@@ -1024,7 +1024,7 @@ var chart = AmCharts.makeChart("chartdiv1", {
 								</script>
 <!--//skycons-icons-->
 <!-- //js -->
-<script src="js/screenfull.js"></script>
+<script src="{{ asset('templates/js/screenfull.js')}}"></script>
 		<script>
 		$(function () {
 			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -1040,7 +1040,7 @@ var chart = AmCharts.makeChart("chartdiv1", {
 			});	
 		});
 		</script>
-		<script src="js/flipclock.js"></script>
+		<script src="{{ asset('templates/js/flipclock.js')}}"></script>
 	
 	<script type="text/javascript">
 		var clock;
@@ -1052,11 +1052,11 @@ var chart = AmCharts.makeChart("chartdiv1", {
 		    });
 		});
 	</script>
-<script src="js/bars.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
-<script src="js/scripts.js"></script>
+<script src="{{ asset('templates/js/bars.js')}}"></script>
+<script src="{{ asset('templates/js/jquery.nicescroll.js')}}"></script>
+<script src="{{ asset('templates/js/scripts.js')}}"></script>
 
-<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+<script type="text/javascript" src="{{ asset('templates/js/bootstrap-3.1.1.min.js')}}"></script>
 
 
 </body>
