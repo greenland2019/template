@@ -44,6 +44,16 @@ class Evenement
      */
     private $lieu;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $affiche;
+
 
     /**
      * @param mixed $id
@@ -125,5 +135,36 @@ class Evenement
         $this->type = $type;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAffiche()
+    {
+        return $this->affiche;
+    }
+
+    /**
+     * @param mixed $affiche
+     */
+    public function setAffiche($affiche)
+    {
+        $this->affiche = $affiche;
+    }
 
 }

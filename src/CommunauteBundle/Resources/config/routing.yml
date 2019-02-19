@@ -1,3 +1,7 @@
 communaute_homepage:
     path:     /
     defaults: { _controller: CommunauteBundle:Default:index }
+
+communaute_liste_events:
+    path:     /events
+    defaults: { _controller: CommunauteBundle:Event:affich }

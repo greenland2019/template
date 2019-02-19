@@ -10,6 +10,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         if($request->getSession()->get('login') ) {
+
             return $this->render('@PLants/Login/main-page.html.twig');
         }
         return $this->render('@PLants/Login/signin.html.twig');
