@@ -27,7 +27,7 @@ class Evenement
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_event;
+    private $dateEvent;
 
     /**
      * @ORM\Column(type="string")
@@ -37,7 +37,7 @@ class Evenement
     /**
      * @ORM\Column(type="integer")
      */
-    private $nb_participants;
+    private $nbParticipants;
 
     /**
      * @ORM\Column(type="text")
@@ -72,11 +72,11 @@ class Evenement
     }
 
     /**
-     * @param mixed $nb_participants
+     * @param mixed $nbParticipants
      */
-    public function setNbParticipants($nb_participants)
+    public function setNbParticipants($nbParticipants)
     {
-        $this->nb_participants = $nb_participants;
+        $this->nbParticipants = $nbParticipants;
     }
 
     /**
@@ -84,7 +84,7 @@ class Evenement
      */
     public function getNbParticipants()
     {
-        return $this->nb_participants;
+        return $this->nbParticipants;
     }
 
     /**
@@ -92,7 +92,7 @@ class Evenement
      */
     public function getDateEvent()
     {
-        return $this->date_event;
+        return $this->dateEvent;
     }
 
     /**
@@ -112,11 +112,11 @@ class Evenement
     }
 
     /**
-     * @param mixed $date_event
+     * @param mixed $dateEvent
      */
-    public function setDateEvent($date_event)
+    public function setDateEvent($dateEvent)
     {
-        $this->date_event = $date_event;
+        $this->dateEvent = $dateEvent;
     }
 
     /**
@@ -166,5 +166,6 @@ class Evenement
     {
         $this->affiche = $affiche;
     }
+
 
 }

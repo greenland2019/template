@@ -7,12 +7,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="zxx">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//code.highcharts.com/3.0.10/adapters/mootools-adapter.js" type="text/javascript"></script>
+
+<script src="//code.highcharts.com/4.1.8/highcharts.js"></script>
+<script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
 <script>
     $(document).ready(function() {
-        $("#add").click(function () {
-           $('#ajout').toggle();
-        });
-
+            $('#modifbtn').click(function () {
+                $('#modif').show();
+                $('#statview').hide();
+                $('#stats').hide();
+            });
+        $('#statis').click(function () {
+            $('#statview').show();
+            $('#stats').show();
+            $('#modif').hide();
+        })
     });
 </script>
 <head>
@@ -299,375 +309,433 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="inner_content">
         <div class="inner_content_w3_agile_info">
             <!-- /agile_top_w3_grids-->
-            <div class="agile_top_w3_grids">
-     <button class="btn-primary" id="add">Organiser un evenement</button>
-            </div>
             <br>
             <div class="agile-validation agile_info_shadow"  id="ajout" style="width: 50%" hidden>
                 <div class="validation-grids validation-grids-right">
-            <div class=" widget-shadow login-form-shadow">
-            <form method="post" class="form-body form-body-info">
-                    <div class="form-group">
-                        <input type="datetime-local"  name="date"  id="date" required="">
+                    <div class=" widget-shadow login-form-shadow">
+                        <form method="post" class="form-body form-body-info">
+
+                        </form>
                     </div>
-                <div class="form-group">
-                     <select id="type" name="type">
-                         <option>Rencontre</option>
-                         <option>Apprentissage</option>
-                         <option>Exposition</option>
-                     </select>
-                    </div>
-                <div class="form-group">
-                    <input type="text"  name="adresse"  id="adresse" placeholder="Adresse" required="">
-                    </div>
-                <div class="form-group">
-                   <textarea id="description" name="description" cols="40" rows="10" placeholder="Description" required=""></textarea>
-                    </div>
-                <div class="form-group">
-                   <button onclick="document.getElementById('affiche').click(); return false;" >Affiche</button><input type="file" name="affiche" id="affiche" style="visibility: hidden" required="">
                 </div>
-                <button type="submit"  class="btn btn-primary ">Ajouter</button>
-            </form>
             </div>
-        </div>
-            </div>
-            {% for event in events %}
-                <a href="{{ path('communaute_stats_event',{'id':event.id}) }}" id="event">
-                    <div class="agile-validation agile_info_shadow"  style="width: 40%" >
+            <div >
+                    <div class="agile-validation agile_info_shadow"  style="width: 40%;float: left" >
                         <div class="validation-grids validation-grids-right">
                             <div class=" widget-shadow login-form-shadow">
+                                <button id="modifbtn" class="btn-success">Modifier</button><button class="btn-success"><a href="{{ path('communaute_delete_event',{'id':event.id}) }}" style="color: white">Supprimer</a></button><button class="btn-success" id="statis">Statistiques</button>
                                 <img src="{{ asset('templates/images/'~event.affiche) }}" width="100%" height="100%">
-                                <b align="center" >{{ event.description }}</b>
+                                <b align="center">{{ event.description }}</b>
+                            </div>
+                            <hr>
+                            <div>
+                                <b style="color: green">Date:</b><i style="float: right">{{ event.dateEvent | date('d/m/Y H:i:s')}}</i><br>
+                                <b style="color: green">Nombre de participants: </b> <i style="float: right">{{ event.nbParticipants }}</i><br>
+                                <form action="http://maps.google.com/maps" method="get" target="_blank">
+                                    <input type="hidden" name="daddr" value="{{ event.lieu }}" id="lieu"/>
+                                    <input type="submit" value="Geo localiser" class="btn-success"/>
+                                </form>
+                               <button style="float: right"><img src="{{ asset('templates/images/sharef.png') }}" width="20px" height="20px"></button>
                             </div>
                         </div>
                     </div>
-                </a>
 
-        {% endfor %}
+            <div class="agile-validation agile_info_shadow"  id="modif" style="width: 50%;float: right" hidden>
+                <div class="validation-grids validation-grids-right">
+                    <div class=" widget-shadow login-form-shadow">
+                        <form method="post" class="form-body form-body-info">
+                            <div class="form-group">
+                                <input type="text"  name="dateini" value="{{ event.dateEvent | date('d/m/Y H:i:s') }}"  id="dateini" disabled>
+                                <input type="datetime-local"  name="datemodif" value=""  id="datemodif" >
+                            </div>
+                            <div class="form-group">
+                               <input type="text" id="typeini" value="{{ event.type }}" disabled> <select name="typemodif" id="typemodif" >
+                                    <option>Rencontre</option>
+                                    <option>Apprentissage</option>
+                                    <option>Exposition</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text"  name="adressemodif"  id="adressemodif" placeholder="Adresse" value="{{ event.lieu }}" required="">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="descriptionmodif" name="descriptionmodif" cols="40" rows="10" placeholder="Description" required="">{{ event.description }}</textarea>
+                            </div>
+                            <div class="form-group">
+                               <input type="text" value="{{ event.affiche }}" name="afficheini" id="afficheini" disabled>  <button onclick="document.getElementById('affichemodif').click(); return false;" >Affiche</button><input type="file" name="affichemodif" id="affichemodif" style="visibility: hidden" >
+                            </div>
+                            <button type="submit" name="modifsubmit"  class="btn btn-primary">Modifier</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                <div class="agile-validation agile_info_shadow"  id="statview" style="width: 50%;float: " hidden>
+                    <div class="validation-grids validation-grids-right">
+                        <div class=" widget-shadow login-form-shadow">
+                            <table border="2">
+                               <thead>
+                                <tr>
+                                    <td>Participants</td>
+                                    <td>Notes</td>
+                                </tr>
+                               </thead>
+                                <tbody>
+                                {% set count, val = 0,0  %}
+                                {% for part in parts  %}
+                                    {% set count =count +1 %}
+                                {% for note in notes %}
+                                {% if note.noteur.id == part.participant.id %}
+                                    {% set val =val|number_format+ note.note %}
+                                <tr>
+                                    <td>{{ part.participant.nom }}</td>
+                                    <td>
+                                        {% for i in 1..note.note  %}
+                                            <img src="{{ asset('templates/images/votestar.png') }}" width="20px" height="20px">
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                            <p>Cet évenèment est évalué à :</p>{{ val/count }}/5
+
+                        </div>
+                    </div>
+                </div>
+                <div id="stats" style="float:end;" hidden>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        {{ gc_draw([piechart, histogram], ['div_piechart', 'div_histogram']) }}
+                    </script>
+                    <div id="div_piechart"></div>
+                    <div id="div_histogram"></div>
+                </div>
+            </div>
+        </div>
+        <!-- //inner_content-->
     </div>
-    <!-- //inner_content-->
-</div>
-<!-- banner -->
-<!--copy rights start here-->
-<div class="copyrights">
-    <p>© 2017 Esteem. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-</div>
-<!--copy rights end here-->
-<!-- js -->
+    <!-- banner -->
+    <!--copy rights start here-->
 
-<script type="text/javascript" src="{{ asset('templates/js/jquery-2.1.4.min.js')}}"></script>
+    <!--copy rights end here-->
+    <!-- js -->
 
-<!-- /amcharts -->
-<script src="{{ asset('js/amcharts.js')}}"></script>
-<script src="{{ asset('templates/js/serial.js')}}"></script>
-<script src="{{ asset('templates/js/export.js')}}"></script>
-<script src="{{ asset('templates/js/light.js')}}"></script>
-<!-- Chart code -->
-<script>
-    var chart = AmCharts.makeChart("chartdiv", {
-        "theme": "light",
-        "type": "serial",
-        "startDuration": 2,
-        "dataProvider": [{
-            "country": "USA",
-            "visits": 4025,
-            "color": "#FF0F00"
-        }, {
-            "country": "China",
-            "visits": 1882,
-            "color": "#FF6600"
-        }, {
-            "country": "Japan",
-            "visits": 1809,
-            "color": "#FF9E01"
-        }, {
-            "country": "Germany",
-            "visits": 1322,
-            "color": "#FCD202"
-        }, {
-            "country": "UK",
-            "visits": 1122,
-            "color": "#F8FF01"
-        }, {
-            "country": "France",
-            "visits": 1114,
-            "color": "#B0DE09"
-        }, {
-            "country": "India",
-            "visits": 984,
-            "color": "#04D215"
-        }, {
-            "country": "Spain",
-            "visits": 711,
-            "color": "#0D8ECF"
-        }, {
-            "country": "Netherlands",
-            "visits": 665,
-            "color": "#0D52D1"
-        }, {
-            "country": "Russia",
-            "visits": 580,
-            "color": "#2A0CD0"
-        }, {
-            "country": "South Korea",
-            "visits": 443,
-            "color": "#8A0CCF"
-        }, {
-            "country": "Canada",
-            "visits": 441,
-            "color": "#CD0D74"
-        }, {
-            "country": "Brazil",
-            "visits": 395,
-            "color": "#754DEB"
-        }, {
-            "country": "Italy",
-            "visits": 386,
-            "color": "#DDDDDD"
-        }, {
-            "country": "Taiwan",
-            "visits": 338,
-            "color": "#333333"
-        }],
-        "valueAxes": [{
-            "position": "left",
-            "axisAlpha":0,
-            "gridAlpha":0
-        }],
-        "graphs": [{
-            "balloonText": "[[category]]: <b>[[value]]</b>",
-            "colorField": "color",
-            "fillAlphas": 0.85,
-            "lineAlpha": 0.1,
-            "type": "column",
-            "topRadius":1,
-            "valueField": "visits"
-        }],
-        "depth3D": 40,
-        "angle": 30,
-        "chartCursor": {
-            "categoryBalloonEnabled": false,
-            "cursorAlpha": 0,
-            "zoomable": false
-        },
-        "categoryField": "country",
-        "categoryAxis": {
-            "gridPosition": "start",
-            "axisAlpha":0,
-            "gridAlpha":0
+    <script type="text/javascript" src="{{ asset('templates/js/jquery-2.1.4.min.js')}}"></script>
 
-        },
-        "export": {
-            "enabled": true
+    <!-- /amcharts -->
+    <script src="{{ asset('js/amcharts.js')}}"></script>
+    <script src="{{ asset('templates/js/serial.js')}}"></script>
+    <script src="{{ asset('templates/js/export.js')}}"></script>
+    <script src="{{ asset('templates/js/light.js')}}"></script>
+    <!-- Chart code -->
+    <script>
+        var chart = AmCharts.makeChart("chartdiv", {
+            "theme": "light",
+            "type": "serial",
+            "startDuration": 2,
+            "dataProvider": [{
+                "country": "USA",
+                "visits": 4025,
+                "color": "#FF0F00"
+            }, {
+                "country": "China",
+                "visits": 1882,
+                "color": "#FF6600"
+            }, {
+                "country": "Japan",
+                "visits": 1809,
+                "color": "#FF9E01"
+            }, {
+                "country": "Germany",
+                "visits": 1322,
+                "color": "#FCD202"
+            }, {
+                "country": "UK",
+                "visits": 1122,
+                "color": "#F8FF01"
+            }, {
+                "country": "France",
+                "visits": 1114,
+                "color": "#B0DE09"
+            }, {
+                "country": "India",
+                "visits": 984,
+                "color": "#04D215"
+            }, {
+                "country": "Spain",
+                "visits": 711,
+                "color": "#0D8ECF"
+            }, {
+                "country": "Netherlands",
+                "visits": 665,
+                "color": "#0D52D1"
+            }, {
+                "country": "Russia",
+                "visits": 580,
+                "color": "#2A0CD0"
+            }, {
+                "country": "South Korea",
+                "visits": 443,
+                "color": "#8A0CCF"
+            }, {
+                "country": "Canada",
+                "visits": 441,
+                "color": "#CD0D74"
+            }, {
+                "country": "Brazil",
+                "visits": 395,
+                "color": "#754DEB"
+            }, {
+                "country": "Italy",
+                "visits": 386,
+                "color": "#DDDDDD"
+            }, {
+                "country": "Taiwan",
+                "visits": 338,
+                "color": "#333333"
+            }],
+            "valueAxes": [{
+                "position": "left",
+                "axisAlpha":0,
+                "gridAlpha":0
+            }],
+            "graphs": [{
+                "balloonText": "[[category]]: <b>[[value]]</b>",
+                "colorField": "color",
+                "fillAlphas": 0.85,
+                "lineAlpha": 0.1,
+                "type": "column",
+                "topRadius":1,
+                "valueField": "visits"
+            }],
+            "depth3D": 40,
+            "angle": 30,
+            "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+            },
+            "categoryField": "country",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "axisAlpha":0,
+                "gridAlpha":0
+
+            },
+            "export": {
+                "enabled": true
+            }
+
+        }, 0);
+    </script>
+    <!-- Chart code -->
+    <script>
+        var chart = AmCharts.makeChart("chartdiv1", {
+            "type": "serial",
+            "theme": "light",
+            "legend": {
+                "horizontalGap": 10,
+                "maxColumns": 1,
+                "position": "right",
+                "useGraphSettings": true,
+                "markerSize": 10
+            },
+            "dataProvider": [{
+                "year": 2017,
+                "europe": 2.5,
+                "namerica": 2.5,
+                "asia": 2.1,
+                "lamerica": 0.3,
+                "meast": 0.2,
+                "africa": 0.1
+            }, {
+                "year": 2016,
+                "europe": 2.6,
+                "namerica": 2.7,
+                "asia": 2.2,
+                "lamerica": 0.3,
+                "meast": 0.3,
+                "africa": 0.1
+            }, {
+                "year": 2015,
+                "europe": 2.8,
+                "namerica": 2.9,
+                "asia": 2.4,
+                "lamerica": 0.3,
+                "meast": 0.3,
+                "africa": 0.1
+            }],
+            "valueAxes": [{
+                "stackType": "regular",
+                "axisAlpha": 0.5,
+                "gridAlpha": 0
+            }],
+            "graphs": [{
+                "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+                "fillAlphas": 0.8,
+                "labelText": "[[value]]",
+                "lineAlpha": 0.3,
+                "title": "Europe",
+                "type": "column",
+                "color": "#000000",
+                "valueField": "europe"
+            }, {
+                "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+                "fillAlphas": 0.8,
+                "labelText": "[[value]]",
+                "lineAlpha": 0.3,
+                "title": "North America",
+                "type": "column",
+                "color": "#000000",
+                "valueField": "namerica"
+            }, {
+                "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+                "fillAlphas": 0.8,
+                "labelText": "[[value]]",
+                "lineAlpha": 0.3,
+                "title": "Asia-Pacific",
+                "type": "column",
+                "color": "#000000",
+                "valueField": "asia"
+            }, {
+                "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+                "fillAlphas": 0.8,
+                "labelText": "[[value]]",
+                "lineAlpha": 0.3,
+                "title": "Latin America",
+                "type": "column",
+                "color": "#000000",
+                "valueField": "lamerica"
+            }, {
+                "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+                "fillAlphas": 0.8,
+                "labelText": "[[value]]",
+                "lineAlpha": 0.3,
+                "title": "Middle-East",
+                "type": "column",
+                "color": "#000000",
+                "valueField": "meast"
+            }, {
+                "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+                "fillAlphas": 0.8,
+                "labelText": "[[value]]",
+                "lineAlpha": 0.3,
+                "title": "Africa",
+                "type": "column",
+                "color": "#000000",
+                "valueField": "africa"
+            }],
+            "rotate": true,
+            "categoryField": "year",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "axisAlpha": 0,
+                "gridAlpha": 0,
+                "position": "left"
+            },
+            "export": {
+                "enabled": true
+            }
+        });
+    </script>
+
+    <!-- //amcharts -->
+    <script src="{{ asset('templates/js/chart1.js')}}"></script>
+    <script src="{{ asset('templates/js/Chart.min.js')}}"></script>
+    <script src="{{ asset('templates/js/modernizr.custom.js')}}"></script>
+
+    <script src="{{ asset('templates/js/classie.js')}}"></script>
+    <script src="{{ asset('templates/js/gnmenu.js')}}"></script>
+    <script>
+        new gnMenu( document.getElementById( 'gn-menu' ) );
+    </script>
+    <!-- script-for-menu -->
+
+    <!-- /circle-->
+    <script type="text/javascript" src="{{ asset('templates/js/circles.js')}}"></script>
+    <script>
+        var colors = [
+            ['#ffffff', '#fd9426'], ['#ffffff', '#fc3158'],['#ffffff', '#53d769'], ['#ffffff', '#147efb']
+        ];
+        for (var i = 1; i <= 7; i++) {
+            var child = document.getElementById('circles-' + i),
+                percentage = 30 + (i * 10);
+
+            Circles.create({
+                id:         child.id,
+                percentage: percentage,
+                radius:     80,
+                width:      10,
+                number:   	percentage / 1,
+                text:       '%',
+                colors:     colors[i - 1]
+            });
         }
 
-    }, 0);
-</script>
-<!-- Chart code -->
-<script>
-    var chart = AmCharts.makeChart("chartdiv1", {
-        "type": "serial",
-        "theme": "light",
-        "legend": {
-            "horizontalGap": 10,
-            "maxColumns": 1,
-            "position": "right",
-            "useGraphSettings": true,
-            "markerSize": 10
-        },
-        "dataProvider": [{
-            "year": 2017,
-            "europe": 2.5,
-            "namerica": 2.5,
-            "asia": 2.1,
-            "lamerica": 0.3,
-            "meast": 0.2,
-            "africa": 0.1
-        }, {
-            "year": 2016,
-            "europe": 2.6,
-            "namerica": 2.7,
-            "asia": 2.2,
-            "lamerica": 0.3,
-            "meast": 0.3,
-            "africa": 0.1
-        }, {
-            "year": 2015,
-            "europe": 2.8,
-            "namerica": 2.9,
-            "asia": 2.4,
-            "lamerica": 0.3,
-            "meast": 0.3,
-            "africa": 0.1
-        }],
-        "valueAxes": [{
-            "stackType": "regular",
-            "axisAlpha": 0.5,
-            "gridAlpha": 0
-        }],
-        "graphs": [{
-            "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-            "fillAlphas": 0.8,
-            "labelText": "[[value]]",
-            "lineAlpha": 0.3,
-            "title": "Europe",
-            "type": "column",
-            "color": "#000000",
-            "valueField": "europe"
-        }, {
-            "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-            "fillAlphas": 0.8,
-            "labelText": "[[value]]",
-            "lineAlpha": 0.3,
-            "title": "North America",
-            "type": "column",
-            "color": "#000000",
-            "valueField": "namerica"
-        }, {
-            "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-            "fillAlphas": 0.8,
-            "labelText": "[[value]]",
-            "lineAlpha": 0.3,
-            "title": "Asia-Pacific",
-            "type": "column",
-            "color": "#000000",
-            "valueField": "asia"
-        }, {
-            "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-            "fillAlphas": 0.8,
-            "labelText": "[[value]]",
-            "lineAlpha": 0.3,
-            "title": "Latin America",
-            "type": "column",
-            "color": "#000000",
-            "valueField": "lamerica"
-        }, {
-            "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-            "fillAlphas": 0.8,
-            "labelText": "[[value]]",
-            "lineAlpha": 0.3,
-            "title": "Middle-East",
-            "type": "column",
-            "color": "#000000",
-            "valueField": "meast"
-        }, {
-            "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-            "fillAlphas": 0.8,
-            "labelText": "[[value]]",
-            "lineAlpha": 0.3,
-            "title": "Africa",
-            "type": "column",
-            "color": "#000000",
-            "valueField": "africa"
-        }],
-        "rotate": true,
-        "categoryField": "year",
-        "categoryAxis": {
-            "gridPosition": "start",
-            "axisAlpha": 0,
-            "gridAlpha": 0,
-            "position": "left"
-        },
-        "export": {
-            "enabled": true
-        }
-    });
-</script>
+    </script>
+    <!-- //circle -->
+    <!--skycons-icons-->
+    <script src="{{ asset('templates/js/skycons.js')}}"></script>
+    <script>
+        var icons = new Skycons({"color": "#fcb216"}),
+            list  = [
+                "partly-cloudy-day"
+            ],
+            i;
 
-<!-- //amcharts -->
-<script src="{{ asset('templates/js/chart1.js')}}"></script>
-<script src="{{ asset('templates/js/Chart.min.js')}}"></script>
-<script src="{{ asset('templates/js/modernizr.custom.js')}}"></script>
+        for(i = list.length; i--; )
+            icons.set(list[i], list[i]);
+        icons.play();
+    </script>
+    <script>
+        var icons = new Skycons({"color": "#fff"}),
+            list  = [
+                "clear-night","partly-cloudy-night", "cloudy", "clear-day", "sleet", "snow", "wind","fog"
+            ],
+            i;
 
-<script src="{{ asset('templates/js/classie.js')}}"></script>
-<script src="{{ asset('templates/js/gnmenu.js')}}"></script>
-<script>
-    new gnMenu( document.getElementById( 'gn-menu' ) );
-</script>
-<!-- script-for-menu -->
+        for(i = list.length; i--; )
+            icons.set(list[i], list[i]);
+        icons.play();
+    </script>
+    <!--//skycons-icons-->
+    <!-- //js -->
+    <script src="{{ asset('templates/js/screenfull.js')}}"></script>
+    <script>
+        $(function () {
+            $('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
 
-<!-- /circle-->
-<script type="text/javascript" src="{{ asset('templates/js/circles.js')}}"></script>
-<script>
-    var colors = [
-        ['#ffffff', '#fd9426'], ['#ffffff', '#fc3158'],['#ffffff', '#53d769'], ['#ffffff', '#147efb']
-    ];
-    for (var i = 1; i <= 7; i++) {
-        var child = document.getElementById('circles-' + i),
-            percentage = 30 + (i * 10);
+            if (!screenfull.enabled) {
+                return false;
+            }
 
-        Circles.create({
-            id:         child.id,
-            percentage: percentage,
-            radius:     80,
-            width:      10,
-            number:   	percentage / 1,
-            text:       '%',
-            colors:     colors[i - 1]
+
+
+            $('#toggle').click(function () {
+                screenfull.toggle($('#container')[0]);
+            });
         });
-    }
+    </script>
+    <script src="{{ asset('templates/js/flipclock.js')}}"></script>
 
-</script>
-<!-- //circle -->
-<!--skycons-icons-->
-<script src="{{ asset('templates/js/skycons.js')}}"></script>
-<script>
-    var icons = new Skycons({"color": "#fcb216"}),
-        list  = [
-            "partly-cloudy-day"
-        ],
-        i;
+    <script type="text/javascript">
+        var clock;
 
-    for(i = list.length; i--; )
-        icons.set(list[i], list[i]);
-    icons.play();
-</script>
-<script>
-    var icons = new Skycons({"color": "#fff"}),
-        list  = [
-            "clear-night","partly-cloudy-night", "cloudy", "clear-day", "sleet", "snow", "wind","fog"
-        ],
-        i;
+        $(document).ready(function() {
 
-    for(i = list.length; i--; )
-        icons.set(list[i], list[i]);
-    icons.play();
-</script>
-<!--//skycons-icons-->
-<!-- //js -->
-<script src="{{ asset('templates/js/screenfull.js')}}"></script>
-<script>
-    $(function () {
-        $('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
-
-        if (!screenfull.enabled) {
-            return false;
-        }
-
-
-
-        $('#toggle').click(function () {
-            screenfull.toggle($('#container')[0]);
+            clock = $('.clock').FlipClock({
+                clockFace: 'HourlyCounter'
+            });
         });
-    });
-</script>
-<script src="{{ asset('templates/js/flipclock.js')}}"></script>
+    </script>
+    <script src="{{ asset('templates/js/bars.js')}}"></script>
+    <script src="{{ asset('templates/js/jquery.nicescroll.js')}}"></script>
+    <script src="{{ asset('templates/js/scripts.js')}}"></script>
 
-<script type="text/javascript">
-    var clock;
-
-    $(document).ready(function() {
-
-        clock = $('.clock').FlipClock({
-            clockFace: 'HourlyCounter'
-        });
-    });
-</script>
-<script src="{{ asset('templates/js/bars.js')}}"></script>
-<script src="{{ asset('templates/js/jquery.nicescroll.js')}}"></script>
-<script src="{{ asset('templates/js/scripts.js')}}"></script>
-
-<script type="text/javascript" src="{{ asset('templates/js/bootstrap-3.1.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('templates/js/bootstrap-3.1.1.min.js')}}"></script>
 
 
 </body>

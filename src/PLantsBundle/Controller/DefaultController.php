@@ -13,6 +13,6 @@ class DefaultController extends Controller
 
             return $this->render('@PLants/Login/main-page.html.twig');
         }
-        return $this->render('@PLants/Login/signin.html.twig');
+        return $this->redirectToRoute('plants_homepage');
     }
 }

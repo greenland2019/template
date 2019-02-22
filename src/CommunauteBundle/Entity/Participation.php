@@ -29,7 +29,7 @@ class Participation
      * @ORM\ManyToOne(targetEntity="PLantsBundle\Entity\Personne")
      */
 
-    private $partcipant;
+    private $participant;
 
     /**
      * @ORM\ManyToOne(targetEntity="Evenement")
@@ -48,9 +48,9 @@ class Participation
     /**
      * @return mixed
      */
-    public function getPartcipant()
+    public function getparticipant()
     {
-        return $this->partcipant;
+        return $this->participant;
     }
 
     /**
@@ -62,10 +62,26 @@ class Participation
     }
 
     /**
-     * @param mixed $partcipant
+     * @param mixed $participant
      */
-    public function setPartcipant($partcipant)
+    public function setparticipant($participant)
     {
-        $this->partcipant = $partcipant;
+        $this->participant = $participant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

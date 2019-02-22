@@ -5,3 +5,11 @@ communaute_homepage:
 communaute_liste_events:
     path:     /events
     defaults: { _controller: CommunauteBundle:Event:affich }
+
+communaute_stats_event:
+    path:     /stats/{id}
+    defaults: { _controller: CommunauteBundle:Event:stats }
+
+communaute_delete_event:
+  path:     /delete/{id}
+  defaults: { _controller: CommunauteBundle:Event:delete }
