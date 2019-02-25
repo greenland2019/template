@@ -9,47 +9,55 @@ use CommunauteBundle\Entity\Evenement;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\Histogram;
+//use CommunauteBundle\Entity\EvenementRepository;
 
 class EventController extends Controller
 {
     public function affichAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         $events= $em->getRepository('CommunauteBundle:Evenement')->findAll();
-
-        if ($request->getMethod() == "POST") {
-
-                $evenement = new evenement();
-                $evenement->setLieu($request->get("adresse"));
-                $evenement->setType($request->get("type"));
-                $evenement->setAffiche($request->get("affiche"));
-                $evenement->setNbParticipants(0);
-                $evenement->setDateEvent(new \DateTime($request->get("date")));
-                $evenement->setDescription($request->get("description"));
-                $em->persist($evenement);
-                $em->flush();
-
-
-            return $this->redirectToRoute('communaute_liste_events');
-
+        $eventtest = $em->getRepository('CommunauteBundle:Evenement')->displayeventsbyparts();
+        $i=0;
+        $event1= new Evenement();
+        $event2= new Evenement();
+        $event3= new Evenement();
+        $event4= new Evenement();
+        $event5= new Evenement();
+        foreach ($eventtest as $event){
+            if($i==0){
+                $event1=$event;
             }
 
-        return $this->render('@Communaute/Event/events.html.twig',array('events'=>$events));
-    }
+            if($i==1){
+                $event2=$event;
+            }
 
-    public function statsAction($id,Request $request){
+            if($i==2){
+                $event3=$event;
+            }
 
+            if($i==3){
+                $event4=$event;
+            }
+
+            if($i==4){
+                $event5=$event;
+            }
+            $i+=1;
+        }
         $pieChart = new PieChart();
         $pieChart->getData()->setArrayToDataTable(
             [
                 ['Language', 'Speakers (in millions)'],
-                ['German',  5.85],
-                ['French',  1.66],
-                ['Italian', 0.316],
-                ['Romansh', 0.0791]
+                [$event1->getDescription(),  $event1->getNbParticipants()],
+                [$event2->getDescription(),  $event2->getNbParticipants()],
+                [$event3->getDescription(), $event3->getNbParticipants()],
+                [$event4->getDescription(), $event4->getNbParticipants()],
+                [$event5->getDescription(), $event5->getNbParticipants()],
             ]
         );
         $pieChart->getOptions()->setPieSliceText('label');
-        $pieChart->getOptions()->setTitle('Swiss Language Use (100 degree rotation)');
+        $pieChart->getOptions()->setTitle('Les evenements les  plus populaires');
         $pieChart->getOptions()->setPieStartAngle(100);
         $pieChart->getOptions()->setHeight(500);
         $pieChart->getOptions()->setWidth(900);
@@ -77,10 +85,34 @@ class EventController extends Controller
         $histogram->getOptions()->getHistogram()->setLastBucketPercentile(10);
         $histogram->getOptions()->getHistogram()->setBucketSize(10000000);
 
+        if ($request->getMethod() == "POST") {
+
+                $evenement = new evenement();
+                $evenement->setLieu($request->get("adresse"));
+                $evenement->setType($request->get("type"));
+                $evenement->setAffiche($request->get("affiche"));
+                $evenement->setNbParticipants(0);
+                $evenement->setDateEvent(new \DateTime($request->get("date")));
+                $evenement->setDescription($request->get("description"));
+                $em->persist($evenement);
+                $em->flush();
+
+
+            return $this->redirectToRoute('communaute_liste_events');
+
+            }
+
+        return $this->render('@Communaute/Event/events.html.twig',array('events'=>$events,'piechart' => $pieChart, 'histogram' => $histogram));
+    }
+
+    public function statsAction($id,Request $request){
 
         $em = $this->getDoctrine()->getManager();
+
+
+
         $event= $em->getRepository('CommunauteBundle:Evenement')->find($id);
-        $participations = $em->getRepository('CommunauteBundle:Participation')->findBy(['evenement'=>$event]);
+        $personnes = $em->getRepository('PLantsBundle:Personne')->findAll();
         $notes= $em->getRepository('CommunauteBundle:NoteEvent')->findAll();
         //$participation = $em->getRepository('CommunauteBundle:Participation')->findBy(['evenement'=>$event]);
 
@@ -107,9 +139,9 @@ class EventController extends Controller
             $em->persist($event);
             $em->flush();
 
-            return $this->render('@Communaute/Event/event_stat.html.twig', array('event' => $event,'parts' => $participations,'notes' => $notes,'piechart' => $pieChart, 'histogram' => $histogram));
+            return $this->render('@Communaute/Event/event_stat.html.twig', array('event' => $event,'pers' => $personnes,'notes' => $notes));
         }
-        return $this->render('@Communaute/Event/event_stat.html.twig',array('event' => $event,'parts' => $participations,'notes' => $notes,'piechart' => $pieChart, 'histogram' => $histogram));
+        return $this->render('@Communaute/Event/event_stat.html.twig',array('event' => $event,'pers' => $personnes,'notes' => $notes));
     }
 
     public function deleteAction($id){
@@ -123,5 +155,19 @@ class EventController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('communaute_liste_events');
+    }
+
+    public  function searchAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        if($request->isXmlHttpRequest()){
+            $events = $em->getRepository('CommunauteBundle:Evenement')->find($request->get('id'));
+            $response = new Response(json_encode(array(
+                'id' => $request->get('id'),
+
+            )));
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
     }
 }

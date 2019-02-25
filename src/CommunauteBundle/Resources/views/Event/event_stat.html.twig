@@ -16,11 +16,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             $('#modifbtn').click(function () {
                 $('#modif').show();
                 $('#statview').hide();
-                $('#stats').hide();
             });
         $('#statis').click(function () {
             $('#statview').show();
-            $('#stats').show();
             $('#modif').hide();
         })
     });
@@ -369,25 +367,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
                 </div>
             </div>
-                <div class="agile-validation agile_info_shadow"  id="statview" style="width: 50%;float: " hidden>
+                <div class="agile-validation agile_info_shadow"  id="statview" style="width: 50%;float:right " hidden>
                     <div class="validation-grids validation-grids-right">
                         <div class=" widget-shadow login-form-shadow">
-                            <table border="2">
-                               <thead>
+                            <table border="2" width="100%">
+                               <thead style="color: white;background-color: #007ee5">
                                 <tr>
-                                    <td>Participants</td>
+                                    <td>Clients</td>
                                     <td>Notes</td>
                                 </tr>
                                </thead>
                                 <tbody>
                                 {% set count, val = 0,0  %}
-                                {% for part in parts  %}
-                                    {% set count =count +1 %}
+
                                 {% for note in notes %}
-                                {% if note.noteur.id == part.participant.id %}
+                                {% if note.evenement.id == event.id %}
                                     {% set val =val|number_format+ note.note %}
+                                    {% set count =count +1 %}
                                 <tr>
-                                    <td>{{ part.participant.nom }}</td>
+                                    <td>{{ note.noteur.nom~" "~note.noteur.prenom}}</td>
                                     <td>
                                         {% for i in 1..note.note  %}
                                             <img src="{{ asset('templates/images/votestar.png') }}" width="20px" height="20px">
@@ -396,27 +394,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </tr>
                                 {% endif %}
                                 {% endfor %}
-                                {% endfor %}
 
                                 </tbody>
                             </table>
-                            <p>Cet évenèment est évalué à :</p>{{ val/count }}/5
-
+                            {% if count !=0 %}  <p>Cet évenèment est évalué à :</p>{{ (val/count)|round(2, 'floor') }}/5{% endif %}
                         </div>
                     </div>
                 </div>
-                <div id="stats" style="float:end;" hidden>
-                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                    <script type="text/javascript">
-                        {{ gc_draw([piechart, histogram], ['div_piechart', 'div_histogram']) }}
-                    </script>
-                    <div id="div_piechart"></div>
-                    <div id="div_histogram"></div>
-                </div>
+
             </div>
         </div>
         <!-- //inner_content-->
     </div>
+
     <!-- banner -->
     <!--copy rights start here-->
 

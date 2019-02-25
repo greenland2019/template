@@ -13,3 +13,7 @@ communaute_stats_event:
 communaute_delete_event:
   path:     /delete/{id}
   defaults: { _controller: CommunauteBundle:Event:delete }
+
+communaute_search_event:
+    path:     /search
+    defaults: { _controller: CommunauteBundle:Event:search }

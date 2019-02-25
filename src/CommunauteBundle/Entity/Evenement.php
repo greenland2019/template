@@ -10,8 +10,9 @@ namespace CommunauteBundle\Entity;
 
 use  Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CommunauteBundle\Entity\EvenementRepository")
  */
 
 class Evenement

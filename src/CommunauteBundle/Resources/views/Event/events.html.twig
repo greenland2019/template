@@ -13,7 +13,93 @@ License URL: http://creativecommons.org/licenses/by/3.0/
            $('#ajout').toggle();
         });
 
+        $("#search").click(function () {
+            $.ajax({
+                url:        "{{ path('communaute_search_event') }}",
+                type:       'POST',
+                dataType:   'json',
+                data :{ 'id': $('#searchval').val()},
+                async:      true,
+
+                success: function(data) {
+                    //a.html('');
+                    //alert('bien');
+                    if(data.id===""){
+                        for (var i=0;i<20;i++){
+
+                            $('#event-'+i).show();
+
+                        }
+                    }
+
+                    else {
+                        for (var i=0;i<20;i++){
+                            if(i!==data.id){
+                                $('#event-'+data.id).show();
+                                $('#event-'+i).hide();
+                            }
+                        }
+                    }
+
+                },
+                error : function() {
+                    alert('Ajax request failed.');
+
+                }
+            });
+        });
+        
+
     });
+
+    function  chercher() {
+        $.ajax({
+            url:        "{{ path('communaute_search_event') }}",
+            type:       'POST',
+            dataType:   'json',
+            data :{ 'id': $('#searchval').val()},
+            async:      true,
+
+            success: function(data) {
+                //a.html('');
+                //alert('bien');
+                if(data.id===""){
+                        for (var i=0;i<20;i++){
+
+            $('#event-'+i).show();
+
+        }
+    }
+
+            else {
+                for (var i=0;i<20;i++){
+                    if(i!==data.id){
+                        $('#event-'+data.id).show();
+                        $('#event-'+i).hide();
+                    }
+                }
+                }
+
+
+            },
+            error : function() {
+                alert('Ajax request failed.');
+
+            }
+        });
+    }
+    function searchtype(a){
+        for(var i=0;i<20;i++) {
+            if($('#type-'+i).val().toLowerCase()!==a.toLowerCase()){
+                $('#event-'+i).hide();
+                // $("a:contains(right)").css("font-style","italic");
+            }
+           /* else if($('#type-'+i).val().toLowerCase()===a.toLowerCase()){
+                $('#event-'+i).show();
+            }*/
+        }
+      // alert($('#type-'+5).val());
+    }
 </script>
 <head>
     <title>Esteem  An Admin Panel Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
@@ -279,10 +365,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <li class="second w3l_search">
 
-                <form action="#" method="post">
-                    <input type="search" name="search" placeholder="Search here..." required="">
-                    <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </form>
+
+                    <input type="search" name="search" placeholder="Id de l'évenement" required="" id="searchval" onkeyup="chercher()">
+                    <button class="btn btn-default" id="search"><i class="fa fa-search" aria-hidden="true"></i></button>
+
 
             </li>
             <li class="second full-screen">
@@ -329,13 +415,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <button type="submit"  class="btn btn-primary ">Ajouter</button>
             </form>
             </div>
+
         </div>
             </div>
+            <div>
+                   <p>Tri des évènements par types</p>
+                    <button onclick="searchtype('Rencontre')" class="btn-success">Rencontre</button>/
+                    <button onclick="searchtype('Apprentissage')" class="btn-success">Apprentissage</button>/
+                    <button onclick="searchtype('Exposition')" class="btn-success">Exposition</button>
+
+            </div>
+            <div  id="stats" class="agile-validation agile_info_shadow" style="width: 50%;float: right;background-color: seashell">
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    {{ gc_draw([piechart, histogram], ['div_piechart', 'div_histogram']) }}
+                </script>
+                <div id="div_piechart"></div>
+                <div id="div_histogram"></div>
+            </div>
             {% for event in events %}
-                <a href="{{ path('communaute_stats_event',{'id':event.id}) }}" id="event">
+                <a href="{{ path('communaute_stats_event',{'id':event.id}) }}" id="event-{{ event.id }}">
                     <div class="agile-validation agile_info_shadow"  style="width: 40%" >
                         <div class="validation-grids validation-grids-right">
                             <div class=" widget-shadow login-form-shadow">
+                                <input type="hidden" value="{{ event.type }}" id="type-{{ event.id }}">
                                 <img src="{{ asset('templates/images/'~event.affiche) }}" width="100%" height="100%">
                                 <b align="center" >{{ event.description }}</b>
                             </div>
@@ -344,12 +447,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </a>
 
         {% endfor %}
+
     </div>
     <!-- //inner_content-->
 </div>
 <!-- banner -->
 <!--copy rights start here-->
-<div class="copyrights">
+<div class="copyrights" style="clear:both;float: end;">
     <p>© 2017 Esteem. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
 </div>
 <!--copy rights end here-->
