@@ -13,7 +13,7 @@ class LoginController extends Controller
         $em = $this->getDoctrine()->getManager();
         if($request->getMethod() == "POST"){
             $admin= $em->getRepository('PLantsBundle:Personne')->findOneBy(['email'=> $request->get("email"),'password'=> $request->get("password")]);
-            if($admin && $admin->getRole()=="admin"){
+            if($admin && ($admin->getRole()=="admin" || $admin->getRole()=="livreur")){
                 $sesion =$request->getSession();
                 $sesion->set('login', $admin->getPrenom());
                 return $this->render('@PLants/Login/main-page.html.twig');

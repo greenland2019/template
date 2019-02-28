@@ -27,6 +27,26 @@ class Personne
      * @ORM\Column(type="string",length=50)
      */
     private $nom;
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $zone;
+
+    /**
+     * @return mixed
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    /**
+     * @param mixed $zone
+     */
+    public function setZone($zone)
+    {
+        $this->zone = $zone;
+    }
 
     /**
      * @ORM\Column(type="string",length=50)

@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new CommunauteBundle\CommunauteBundle(),
               new Ob\HighchartsBundle\ObHighchartsBundle(),
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
+            new CommandeBundle\CommandeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

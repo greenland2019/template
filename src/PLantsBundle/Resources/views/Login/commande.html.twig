@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-<title>Esteem  An Admin Panel Category Flat Bootstrap Responsive Website Template | Faqs :: w3layouts</title>
+<title>Esteem  An Admin Panel Category Flat Bootstrap Responsive Website Template | Grids  :: w3layouts</title>
 <!-- custom-theme -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,14 +16,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //custom-theme -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/component.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style_grid.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/component.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/style_grid.css')}}" rel="stylesheet" type="text/css" media="all" />
+<link href="{{ asset('templates/css/style.css" rel="stylesheet')}}" type="text/css" media="all" />
 <!-- font-awesome-icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="{{ asset('templates/css/font-awesome.css')}}" rel="stylesheet">
 <!-- //font-awesome-icons -->
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+
+		function supprimer(str) {
+			$.ajax({
+				url:        "{{ path ('supprimer_commande') }}",
+				type:       'POST',
+				dataType:   'json',
+				data:           {'id':str},
+				async:      true,
+
+				success: function(data) {
+					$('#com-'+str).html("");
+				},
+				error : function() {
+					alert('Ajax request failed.');
+				}
+			});
+
+		}
+
+	</script>
 </head>
 <body>
 <!-- banner -->
@@ -32,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  <!-- /nav-->
 		  <div class="w3_agileits_top_nav">
 			<ul id="gn-menu" class="gn-menu-main">
-				  		 <!-- /nav_agile_w3l -->
+			  		 <!-- /nav_agile_w3l -->
 				<li class="gn-trigger">
 					<a class="gn-icon gn-icon-menu"><i class="fa fa-bars" aria-hidden="true"></i><span>Menu</span></a>
 					<nav class="gn-menu-wrapper">
@@ -43,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<a href="#"><i class="fa fa-cogs" aria-hidden="true"></i> UI Components <i class="fa fa-angle-down" aria-hidden="true"></i></a> 
 									<ul class="gn-submenu">
 										<li class="mini_list_agile"><a href="buttons.html.twig"><i class="fa fa-caret-right" aria-hidden="true"></i> Buttons</a></li>
-										<li class="mini_list_w3"><a href="grids.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Grids</a></li>
+										<li class="mini_list_w3"><a href="commande.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Grids</a></li>
 									</ul>
 								</li>
 								<li>
@@ -78,7 +100,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li>
 									<a href="#"> <i class="fa fa-suitcase" aria-hidden="true"></i>More <i class="fa fa-angle-down" aria-hidden="true"></i></a> 
 									<ul class="gn-submenu">
-										<li class="mini_list_agile"><a href="faq.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Faq</a></li>
+										<li class="mini_list_agile"><a href="livraison.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Faq</a></li>
 										<li class="mini_list_w3"><a href="blank.html.twig"> <i class="fa fa-caret-right" aria-hidden="true"></i> Blank Page</a></li>
 									</ul>
 								</li>
@@ -87,14 +109,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</nav>
 				</li>
 				<!-- //nav_agile_w3l -->
-				<!-- //nav_agile_w3l -->
                 <li class="second logo"><h1><a href="main-page.html.twig"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Esteem </a></h1></li>
 					<li class="second admin-pic">
 				       <ul class="top_dp_agile">
 									<li class="dropdown profile_details_drop">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<div class="profile_img">	
-												<span class="prfil-img"><img src="images/admin.jpg" alt=""> </span> 
+												<span class="prfil-img"><img src="{{ asset('templates/images/admin.jpg')}}" alt=""> </span>
 											</div>	
 										</a>
 										<ul class="dropdown-menu drp-mnu">
@@ -117,7 +138,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												</div>
 											</li>
 											<li><a href="#">
-												<div class="user_img"><img src="images/a3.jpg" alt=""></div>
+												<div class="user_img"><img src="{{ asset('templates/images/a3.jpg')}}" alt=""></div>
 											   <div class="notification_desc">
 											     <h6>John Smith</h6>
 												<p>Lorem ipsum dolor</p>
@@ -295,170 +316,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="w3l_agileits_breadcrumbs_inner">
 								<ul>
 									<li><a href="main-page.html.twig">Home</a><span>«</span></li>
-									<li>More <span>«</span></li>
-									<li>FaQs</li>
+									<li>UI Components<span>«</span></li>
+									<li>Grids</li>
 								</ul>
 							</div>
 						</div>
 					<!-- //breadcrumbs -->
 
-					<div class="inner_content_w3_agile_info two_in">
-					  <h2 class="w3_inner_tittle">Frequently Asked Questions</h2>
+					<div class="checkout-right">
+						<h4>Liste de toutes les commandes</h4>
+						<table class="timetable_sub" border="1
 
-								<div class="asked agile_info_shadow">
-									<div class="questions">
-										<h5>1.What is Lorem Ipsum?</h5>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									</div>
-									 <div class="questions">
-										<h5>2.What is Lorem Ipsum dummy text ever since the 1500s?</h5>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									 </div>	
-									
-									  <div class="questions">
-										<h5>3.What is Duis laoreet, erat quis gravida porttitor odio felis ornare dui?</h5>
-										<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam semper elit risus, nec suscipit tellus tincidunt quis. Fusce non auctor enim. Suspendisse sit amet erat mollis, suscipit nisl sed, condimentum turpis. Curabitur faucibus, nisl ut aliquam porta, massa tortor tristique dolor, eget porttitor velit ligula vel eros. Sed egestas aliquet tellus. Nulla ac luctus urna. Pellentesque feugiat eros quis nibh consectetur, eget dapibus magna egestas. Phasellus non efficitur metus.</p>
-									 </div>	
-							
-									  <div class="questions">
-										<h5>4.What is Quisque sollicitudin diam vel mauris volutpat viverra Proin ac imperdiet libero?</h5>
-										<p>Proin dignissim mi sit amet tincidunt varius. Quisque molestie fermentum dignissim. Sed in urna eget tortor congue tempus. Vestibulum gravida, erat in eleifend ultricies, felis lorem dictum nulla, ut tincidunt neque libero et nibh. Nullam at eros eu ligula auctor interdum a eget lorem. Praesent molestie eros vitae felis efficitur, at finibus sem molestie. Ut sit amet nisi at nunc pulvinar dapibus. Sed non neque et tortor finibus mattis. Mauris sit amet consectetur eros. Sed et ex posuere, vulputate dolor vel, pulvinar felis. </p>
-									 </div>	
-									  <div class="questions">
-										<h5>5.What is Nam semper elit risus, nec suscipit tellus tincidunt quis?</h5>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									 </div>	
-									  <div class="questions">
-										<h5>6.What is Quisque molestie fermentum dignissim?</h5>
-										<p>Sed eget nunc ex. Donec erat est, dapibus ac massa in, laoreet sagittis eros. Aliquam eget arcu feugiat leo elementum tristique. Praesent facilisis aliquam lorem sed pharetra. Donec scelerisque ipsum vel tincidunt gravida. Aliquam erat volutpat. Etiam mattis rhoncus massa, quis semper purus ornare id. Quisque sit amet mattis ipsum, in porttitor massa. Nullam tincidunt mi vel enim volutpat, a elementum libero imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean tincidunt eros eu nisl consequat facilisis. Maecenas ac accumsan elit, sit amet gravida nulla.</p>
-									 </div>	
-									  <div class="questions">
-										<h5>7.What is Vestibulum ante ipsum primis in faucibus orci luctus et?</h5>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-									 </div>				    
+">
+							<thead>
+							<tr>
 
-								</div>
-							<!-- //faq -->
-					
-							<!-- /social_media-->
-						  <div class="social_media_w3ls">
-						 
-						      <div class="col-md-3 socail_grid_agile facebook">
-                                     <ul class="icon_w3_info">
-									   <li><a href="#" class="wthree_facebook"> <i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-									   <li>Facebook</li>
-									 </ul>
-									  <ul class="icon_w3_social">
-									    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-user" aria-hidden="true"></i></li>
-                                      </ul>
-									 <div class="clearfix"></div>
-									  <div class="bottom_info_social">
-									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/admin.jpg" alt="">
-									 </div>
-									  <div class="col-md-8 agile_w3l_social_media_text">
-									    <h4>Hurisa Joe</h4>
-										<p>Lorem ipsum dolor sit amet</p>
-									 </div>
-									
-									 <div class="clearfix"></div>
-									 </div>
-                              </div>
-							  <div class="col-md-3 socail_grid_agile twitter">
-                                         <ul class="icon_w3_info">
-									   <li><a href="#" class="wthree_facebook"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-									   <li>Twitter</li>
-									 </ul>
-									  <ul class="icon_w3_social">
-									    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-user" aria-hidden="true"></i></li>
-                                      </ul>
-									 <div class="clearfix"></div>
-									  <div class="bottom_info_social">
-									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/a1.jpg" alt="">
-									 </div>
-									  <div class="col-md-8 agile_w3l_social_media_text">
-									    <h4>Jasmin Joe</h4>
-										<p>Lorem ipsum dolor sit amet</p>
-									 </div>
-									
-									 <div class="clearfix"></div>
-									 </div>
-                              </div>
-							  <div class="col-md-3 socail_grid_agile gmail">
-                                     <ul class="icon_w3_info">
-									   <li><a href="#" class="wthree_facebook"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-									   <li>Google+</li>
-									 </ul>
-									  <ul class="icon_w3_social">
-									    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-user" aria-hidden="true"></i></li>
-                                      </ul>
-									 <div class="clearfix"></div>
-									  <div class="bottom_info_social">
-									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/a2.jpg" alt="">
-									 </div>
-									  <div class="col-md-8 agile_w3l_social_media_text">
-									    <h4>John Pal</h4>
-										<p>Lorem ipsum dolor sit amet</p>
-									 </div>
-									
-									 <div class="clearfix"></div>
-									 </div>
-                              </div>
-							  <div class="col-md-3 socail_grid_agile dribble">
-							  
-							     <ul class="icon_w3_info">
-									  <li><a href="#" class="wthree_facebook"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-									   <li>Dribbble</li>
-									 </ul>
-									  <ul class="icon_w3_social">
-									    <li><i class="fa fa-comment-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-envelope-o" aria-hidden="true"></i></li>
-										<li><i class="fa fa-user" aria-hidden="true"></i></li>
-                                      </ul>
-									 <div class="clearfix"></div>
-									  <div class="bottom_info_social">
-									 <div class="col-md-4 agile_w3l_social_media_text_img">
-									    <img src="images/a4.jpg" alt="">
-									 </div>
-									  <div class="col-md-8 agile_w3l_social_media_text">
-									    <h4>Honey Pal</h4>
-										<p>Lorem ipsum dolor sit amet</p>
-									 </div>
-									
-									 <div class="clearfix"></div>
-									 </div>
+								<th>id_commande</th>
+								<th>id_client</th>
+								<th>Produits</th>
+								<th>Prix totale</th>
 
-                              </div>
-							  <div class="clearfix"></div>
-													
-						</div>
-						<!-- //social_media-->
-				    </div>
-					<!-- //inner_content_w3_agile_info-->
+								<th>Supprimer</th>
+							</tr>
+							</thead>
+							<tbody>
+							{% for commande in com %}
+								<tr class="rem1" id="com-{{ commande.id }}">
+
+									<td class="invert" align="center">{{ commande.id }}</td>
+									<td class="invert" align="center">{{ commande.personne.id }}</td>
+
+
+									<td class="invert" align="center">{{ commande.produits}}</td>
+									<td class="invert" align="center">{{ commande.prixtotal }}</td>
+									<td><button type="button" id="supp" onclick="supprimer({{ commande.id }})">supprimer</button></td>
+
+
+
+
+									<td class="invert">
+										<div class="rem">
+
+										</div>
+									</td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+
+
 				</div>
-		<!-- //inner_content-->
-	</div>
-<!-- banner -->
-<!--copy rights start here-->
-<div class="copyrights">
-	 <p>© 2017 Esteem. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-</div>	
-<!--copy rights end here-->
-<!-- js -->
+</div>
+</body>
 
-          <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+					<!-- //inner_content_w3_agile_info-->
+
+		<!-- //inner_content-->
+
+
+
+          <script type="text/javascript" src="{{ asset('templates/js/jquery-2.1.4.min.js')}}"></script>
 		  <script src="js/modernizr.custom.js"></script>
 		
-		   <script src="js/classie.js"></script>
-		  <script src="js/gnmenu.js"></script>
+		   <script src="{{ asset('templates/js/classie.js')}}"></script>
+		  <script src="{{ asset('templates/js/gnmenu.js')}}"></script>
 		  <script>
 			new gnMenu( document.getElementById( 'gn-menu' ) );
 		 </script>
@@ -479,7 +402,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					});
 				}
 			</script>
-			  <script src="js/prettymaps.js"></script>
+			  <script src="{{ asset('templates/js/prettymaps.js')}}"></script>
 				<script>
 
         $(function(){
@@ -537,7 +460,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
   </script>
 <!-- //js -->
-<script src="js/screenfull.js"></script>
+<script src="{{ asset('templates/js/screenfull.js')}}"></script>
 		<script>
 		$(function () {
 			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -553,10 +476,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			});	
 		});
 		</script>
-<script src="js/jquery.nicescroll.js"></script>
-<script src="js/scripts.js"></script>
+<script src="{{ asset('templates/js/jquery.nicescroll.js')}}"></script>
+<script src="{{ asset('templates/js/scripts.js')}}"></script>
 
-<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+<script type="text/javascript" src="{{ asset('templates/js/bootstrap-3.1.1.min.js')}}"></script>
 
 
 </body>

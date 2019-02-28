@@ -1,0 +1,12 @@
+commande_homepage:
+    path:     /commande
+    defaults: { _controller: CommandeBundle:Commande:afficher}
+supprimer_commande:
+    path:     /co
+    defaults: { _controller: CommandeBundle:Commande:supp}
+afficher_livraison:
+    path:     /livraison
+    defaults: { _controller: CommandeBundle:Livraison:afficherLivraison}
+modifier_livraison:
+    path:     /livra
+    defaults: { _controller: CommandeBundle:Livraison:modifierLivraison}
